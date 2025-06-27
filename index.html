@@ -212,6 +212,87 @@
             flex: 1;
             min-width: 250px;
         }
+
+        /* Responsive Navbar */
+        @media (max-width: 900px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 16px 5%;
+            }
+
+            .logo-container {
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .hero {
+                flex-direction: column !important;
+                text-align: center;
+                gap: 24px !important;
+                height: auto;
+                padding: 40px 5% 0 5%;
+            }
+
+            #home img {
+                margin: 0 auto;
+            }
+
+            #about {
+                flex-direction: column;
+                text-align: center;
+                gap: 24px;
+            }
+
+            #about img {
+                margin: 0 auto;
+            }
+        }
+
+        /* Hamburger menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            cursor: pointer;
+            z-index: 200;
+        }
+
+        .hamburger span {
+            height: 4px;
+            width: 100%;
+            background: var(--primary);
+            margin: 5px 0;
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        @media (max-width: 700px) {
+            nav ul {
+                display: none;
+                flex-direction: column;
+                background: var(--bg);
+                position: absolute;
+                top: 70px;
+                right: 5%;
+                width: 180px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+                border-radius: 10px;
+                padding: 20px 0;
+                z-index: 150;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+        }
     </style>
 </head>
 
@@ -223,6 +304,11 @@
             <div class="logo">Gabriel Bavon</div>
         </div>
         <nav>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
             <ul>
                 <li><a href="#home">Accueil</a></li>
                 <li><a href="#about">À propos</a></li>
@@ -233,11 +319,16 @@
         <button class="theme-toggle" onclick="toggleTheme()">🎨 Thème</button>
     </header>
 
-    <section id="home" class="hero">
-        <h1>Bonjour, je suis <span>Gabriel Bavon</span></h1>
-        <p>Développeur passionné spécialisé en applications web et desktop. J’aide les entreprises à créer des solutions
-            performantes et intuitives.</p>
-        <a href="#projects" class="cta-button">Voir mes projets</a>
+    <section id="home" class="hero"
+        style="flex-direction: row; justify-content: center; align-items: center; gap: 40px;">
+        <img src="bavon.JPG" alt="Gabriel Bavon portrait"
+            style="width: 180px; height: 180px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary); box-shadow: 0 4px 24px rgba(0,0,0,0.15); background: transparent;">
+        <div style="text-align: left; max-width: 600px;">
+            <h1>Bonjour, je suis <span>Gabriel Bavon</span></h1>
+            <p>Développeur passionné spécialisé en applications web et desktop. J’aide les entreprises à créer des
+                solutions performantes et intuitives.</p>
+            <a href="#projects" class="cta-button">Voir mes projets</a>
+        </div>
     </section>
 
     <section id="about">
@@ -246,7 +337,9 @@
             <h2>À propos de moi</h2>
             <p>Je suis un développeur basé en RDC, passionné par les nouvelles technologies, la résolution de problèmes
                 concrets et la création d'applications utiles. Mon expertise couvre aussi bien le développement frontend
-                (React, HTML/CSS/JS) que backend (Python, Node.js) ainsi que les applications desktop (PyQt6).</p>
+                (React, HTML/CSS/JS) et backend (Python, Node.js) ainsi que les applications desktop (PyQt6, javafx). et
+                mobile
+            </p>
         </div>
     </section>
 
@@ -267,7 +360,13 @@
                 <p>la gestion des fiches; des patients</p>
                 <a href=https://github.com/bavonmbav/facture_tarifaire.git" target="_blank">Voir sur GitHub</a>
             </div>
-            
+            <div class="project-card">
+                <img src="apprendre.png" alt="Region et culture">
+                <h3>Region et Culture</h3>
+                <p>une API qui permet de nous retourner toutes les informations culturelle d'un pays.</p>
+                <p>pour une meilleure education. le site disponible...</p>
+                <a href=https://github.com/bavonmbav/facture_tarifaire.git" target="_blank">Voir sur GitHub</a>
+            </div>
         </div>
     </section>
 
@@ -288,6 +387,18 @@
         function toggleTheme() {
             document.body.classList.toggle('light');
         }
+        function toggleMenu() {
+            const navUl = document.querySelector('nav ul');
+            navUl.classList.toggle('active');
+        }
+        // Fermer le menu au clic sur un lien (mobile)
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('nav ul li a').forEach(function (link) {
+                link.addEventListener('click', function () {
+                    document.querySelector('nav ul').classList.remove('active');
+                });
+            });
+        });
     </script>
 </body>
 
