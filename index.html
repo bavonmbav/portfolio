@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="icon.PNG">
+    <title>Gabriel Bavon | Développeur</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0F0F0F;
+            --text: #FFFFFF;
+            --primary: #00BFFF;
+            --secondary: #1A1A1A;
+            --accent: #007acc;
+        }
+
+        body.light {
+            --bg: #ffffff;
+            --text: #111111;
+            --primary: #007acc;
+            --secondary: #f0f0f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            transition: background 0.3s, color 0.3s;
+            scroll-behavior: smooth;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 10%;
+            background-color: var(--bg);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        nav ul a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        nav ul a:hover {
+            color: var(--primary);
+        }
+
+        .theme-toggle {
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: var(--primary);
+            color: var(--bg);
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            margin-left: 20px;
+        }
+
+        .hero {
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 10%;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .hero span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #ccc;
+            max-width: 600px;
+            margin: 10px auto 20px;
+        }
+
+        .cta-button {
+            background: var(--primary);
+            color: var(--bg);
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .cta-button:hover {
+            background: var(--accent);
+        }
+
+        section {
+            padding: 60px 10%;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .project-card {
+            background: var(--secondary);
+            padding: 20px;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-card img {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .project-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .project-card a {
+            display: inline-block;
+            margin-top: 10px;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 1rem;
+        }
+
+        .contact-links a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        footer {
+            background: var(--bg);
+            text-align: center;
+            padding: 30px 10%;
+            color: #999;
+        }
+
+        #about {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        #about img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        #about div {
+            flex: 1;
+            min-width: 250px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="avatar.PNG" alt="Avatar Gabriel Bavon"
+                style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary);">
+            <div class="logo">Gabriel Bavon</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Accueil</a></li>
+                <li><a href="#about">À propos</a></li>
+                <li><a href="#projects">Projets</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <button class="theme-toggle" onclick="toggleTheme()">🎨 Thème</button>
+    </header>
+
+    <section id="home" class="hero">
+        <h1>Bonjour, je suis <span>Gabriel Bavon</span></h1>
+        <p>Développeur passionné spécialisé en applications web et desktop. J’aide les entreprises à créer des solutions
+            performantes et intuitives.</p>
+        <a href="#projects" class="cta-button">Voir mes projets</a>
+    </section>
+
+    <section id="about">
+        <img src="bv.jpg" alt="Photo Gabriel Bavon">
+        <div>
+            <h2>À propos de moi</h2>
+            <p>Je suis un développeur basé en RDC, passionné par les nouvelles technologies, la résolution de problèmes
+                concrets et la création d'applications utiles. Mon expertise couvre aussi bien le développement frontend
+                (React, HTML/CSS/JS) que backend (Python, Node.js) ainsi que les applications desktop (PyQt6).</p>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2>Mes Projets</h2>
+        <div class="projects">
+            <div class="project-card">
+                <img src="pharmacie.png" alt="Pharmacie">
+                <h3>Gestion de pharmacie</h3>
+                <p>Application PyQt6 pour ventes, stock, alertes, PDF/Excel.</p>
+                <a href="https://github.com/bavonmbav/PharmaLourdes.git" target="_blank">Voir sur GitHub</a>
+            </div>
+            <div class="project-card">
+                <img src="acte.png" alt="Laboratoire">
+                <h3>Actes tarifaire</h3>
+                <p>Application complète de gestion des actes, factures et paiements.</p>
+                <p>rapport en pdf, excel.</p>
+                <p>la gestion des fiches; des patients</p>
+                <a href=https://github.com/bavonmbav/facture_tarifaire.git" target="_blank">Voir sur GitHub</a>
+            </div>
+            
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact</h2>
+        <div class="contact-links">
+            <a href="mailto:18mt469@gmail.com">📧 gabriel.bavon@example.com</a>
+            <a href="https://wa.me/+243999096321" target="_blank">💬 WhatsApp</a>
+            <a href="https://t.me/@gabrielbsvon469" target="_blank">📨 Telegram</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 Gabriel Bavon — Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('light');
+        }
+    </script>
+</body>
+
+</html>
