@@ -107,6 +107,29 @@
             color: var(--primary);
         }
 
+        /* Animation sur le nom */
+        .hero h1 span {
+            display: inline-block;
+            animation: colorPulse 2s infinite alternate;
+        }
+
+        @keyframes colorPulse {
+            0% {
+                color: var(--primary);
+                transform: scale(1);
+            }
+
+            50% {
+                color: #fff700;
+                transform: scale(1.08);
+            }
+
+            100% {
+                color: var(--primary);
+                transform: scale(1);
+            }
+        }
+
         .hero p {
             font-size: 1.1rem;
             color: #ccc;
@@ -136,6 +159,18 @@
             font-size: 2rem;
             color: var(--primary);
             margin-bottom: 20px;
+        }
+
+        /* Animation de diaporama sur les sections */
+        section {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(.4, 0, .2, 1), transform 0.8s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .projects {
@@ -211,6 +246,26 @@
         #about div {
             flex: 1;
             min-width: 250px;
+        }
+
+        /* Animation sur le cercle de la photo */
+        .photo-animated {
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15), 0 0 0 0 var(--primary);
+            animation: borderPulse 2.5s infinite;
+        }
+
+        @keyframes borderPulse {
+            0% {
+                box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15), 0 0 0 0 var(--primary);
+            }
+
+            70% {
+                box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15), 0 0 0 16px rgba(0, 191, 255, 0);
+            }
+
+            100% {
+                box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15), 0 0 0 0 var(--primary);
+            }
         }
 
         /* Responsive Navbar */
@@ -328,18 +383,20 @@
 
     <section id="home" class="hero"
         style="flex-direction: row; justify-content: center; align-items: center; gap: 40px;">
-        <img src="bavon.JPG" alt="Gabriel Bavon portrait"
+        <img src="bavon.JPG" alt="Gabriel Bavon portrait" class="photo-animated"
             style="width: 180px; height: 180px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary); box-shadow: 0 4px 24px rgba(0,0,0,0.15); background: transparent;">
         <div style="text-align: left; max-width: 600px;">
             <h1>Bonjour, je suis <span>Gabriel Bavon</span></h1>
             <p>Développeur passionné spécialisé en applications web et desktop. J’aide les entreprises à créer des
                 solutions performantes et intuitives.</p>
             <a href="#projects" class="cta-button">Voir mes projets</a>
+            <a href="cv.pdf" class="cta-button" style="margin-left: 16px; background: var(--accent);"
+                download>Télécharger mon CV</a>
         </div>
     </section>
 
     <section id="about">
-        <img src="bv.jpg" alt="Photo Gabriel Bavon">
+        <img src="bv.jpg" alt="Photo Gabriel Bavon" class="photo-animated">
         <div>
             <h2>À propos de moi</h2>
             <p>Je suis un développeur basé en RDC, passionné par les nouvelles technologies, la résolution de problèmes
@@ -401,10 +458,38 @@
         // Fermer le menu au clic sur un lien (mobile)
         document.addEventListener('DOMContentLoaded', function () {
             document.querySelectorAll('nav ul li a').forEach(function (link) {
-                link.addEventListener('click', function () {
+                link.addEventListener('click', function (e) {
                     document.querySelector('nav ul').classList.remove('active');
+                    // Forcer le scroll smooth et relancer l'animation
+                    const href = link.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        e.preventDefault();
+                        const target = document.querySelector(href);
+                        if (target) {
+                            target.classList.remove('visible');
+                            setTimeout(() => {
+                                target.scrollIntoView({ behavior: 'smooth' });
+                                setTimeout(() => target.classList.add('visible'), 400);
+                            }, 10);
+                        }
+                    }
                 });
             });
+            // Animation de diaporama sur les sections
+            const sections = document.querySelectorAll('section');
+            const revealSection = () => {
+                const triggerBottom = window.innerHeight * 0.85;
+                sections.forEach(section => {
+                    const sectionTop = section.getBoundingClientRect().top;
+                    if (sectionTop < triggerBottom) {
+                        section.classList.add('visible');
+                    } else {
+                        section.classList.remove('visible');
+                    }
+                });
+            };
+            window.addEventListener('scroll', revealSection);
+            revealSection(); // Initial
         });
     </script>
 </body>
